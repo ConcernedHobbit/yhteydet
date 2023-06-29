@@ -49,5 +49,23 @@
   "veden_olomuodot": {
     "words": ["Lumi", "Jää", "Höyry", "Vesi"],
     "explanation": "Veden olomuotoja"
+  },
+  "merivoimat_luokat": {
+    "words": [
+      "Hämeenmaa",
+      "Pansio",
+      "Kuha",
+      "Kiiski",
+      "Katanpää",
+      "Hamina",
+      "Rauma",
+      "Syöksy",
+      "Jehu",
+      "Jurmo",
+      "Uisko",
+      "Valas",
+      "Kampela"
+    ],
+    "explanation": "Merivoimien alusten luokat"
   }
 }
