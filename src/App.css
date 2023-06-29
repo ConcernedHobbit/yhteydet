@@ -17,10 +17,14 @@
   display: flex;
   justify-content: space-between;
   align-items: last baseline;
+  flex-wrap: wrap;
+
+  margin-block: 2rem;
 }
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
 }
 .seed {
   opacity: 0.25;
