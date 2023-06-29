@@ -1,0 +1,34 @@
+{
+  "lastkirj_hahm": {
+    "words": ["Muumi", "Nalle Puh", "Paddington", "Rölli"],
+    "explanation": "Lastenkirjallisuuden hahmoja"
+  },
+  "planeetat": {
+    "words": ["Uranus", "Maa", "Mars", "Venus"],
+    "explanation": "Planeetat"
+  },
+  "_pallo": {
+    "words": ["Pesä", "Kori", "Käsi", "Jalka"],
+    "explanation": "____pallo"
+  },
+  "_sieni": {
+    "words": ["Korva", "Myrkky", "Herkku", "Pesu"],
+    "explanation": "____sieni"
+  },
+  "näätäeläimet": {
+    "words": ["Hilleri", "Näätä", "Mäyrä", "Kärppä"],
+    "explanation": "Näätäeläimet"
+  },
+  "eepokset": {
+    "words": ["Kalevala", "Edda", "Ilias", "Beowulf"],
+    "explanation": "Vanhoja eepoksia"
+  },
+  "veden_olom": {
+    "words": ["Lumi", "Jää", "Höyry", "Vesi"],
+    "explanation": "Veden olomuodot"
+  },
+  "erit_kok": {
+    "words": ["Mersenne", "Fermat", "Täydellinen", "Kolmionluku"],
+    "explanation": "Erityisiä kokonaislukuja"
+  }
+}
