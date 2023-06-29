@@ -46,12 +46,8 @@
     "words": ["Kalevala", "Edda", "Ilias", "Beowulf"],
     "explanation": "Vanhoja eepoksia"
   },
-  "veden_olom": {
+  "veden_olomuodot": {
     "words": ["Lumi", "Jää", "Höyry", "Vesi"],
-    "explanation": "Veden olomuodot"
-  },
-  "erit_kok": {
-    "words": ["Mersenne", "Fermat", "Täydellinen", "Kolmionluku"],
-    "explanation": "Erityisiä kokonaislukuja"
+    "explanation": "Veden olomuotoja"
   }
 }
