@@ -22,9 +22,12 @@ function App() {
 
     const keys = Object.keys(connections);
     return shuffle(
-      keys.flatMap((key) =>
-        connections[key].words.map((word) => ({ word, id: key }))
-      )
+      keys.flatMap((key) => {
+        // A connection can have more than 4 words.
+        // Limit the connection to 4 words.
+        const connectionWords = shuffle(connections[key].words);
+        return connectionWords.slice(0, 4).map((word) => ({ word, id: key }));
+      })
     );
   }, [connections]);
 
