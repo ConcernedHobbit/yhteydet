@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 8rem));
@@ -37,17 +42,39 @@
   transition-property: background-color color;
   transition-duration: 50ms;
 }
+.word--solved {
+  cursor: unset;
+}
 .word--selected,
 .word--skeleton {
   --bg-color: #5a594e;
   --color: white;
 }
 
+.controls {
+  width: min(calc(4 * 8rem + 3 * 0.5rem), calc(100vw - 4rem));
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  gap: 1ch;
+  margin-block: 1rem;
+}
+@media screen and (max-width: 536px) {
+  .controls {
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+  }
+  button.submit,
+  .lives {
+    width: 100%;
+  }
+}
+
 button.submit {
-  margin-top: 1rem;
   background-color: #efefe6;
   color: black;
-  border: 1px solid black;
+  border: none;
+  line-height: 1rem;
   border-radius: 999px;
   padding: 1rem 3rem;
   font-size: 1rem;
@@ -76,4 +103,16 @@ button.submit:disabled {
   height: 1rem;
   width: 1rem;
   background-color: var(--highlight);
+}
+
+.lives {
+  display: inline-flex;
+  gap: 1ch;
+  min-height: calc(1rem + 2 * 1rem);
+}
+.lives .life {
+  width: calc(1rem + 2 * 1rem);
+  height: calc(1rem + 2 * 1rem);
+  border-radius: 100%;
+  background-color: #efefe6;
 }

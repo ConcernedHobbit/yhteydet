@@ -2,14 +2,16 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 import { Connections, GameContext, Id, Word } from "./GameContext";
-import { stringToColour } from "./utils";
 import WordDisplay from "./WordDisplay";
+import Explanations from "./Explanations";
+import LifeDisplay from "./LifeDisplay";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
   const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
   const [tries, setTries] = useState<number>(4);
-  const hasWon = tries > 0 && solvedIds.length === 4;
+  const isWon = tries > 0 && solvedIds.length === 4;
+  const isLost = tries === 0;
 
   const [connections, setConnections] = useState<undefined | Connections>();
   const words: Word[] = useMemo(() => {
@@ -54,7 +56,7 @@ function App() {
   }, []);
 
   const selectWord = (word: Word) => {
-    if (tries === 0 || hasWon || solvedIds.includes(word.id)) {
+    if (tries === 0 || isWon || solvedIds.includes(word.id)) {
       return;
     }
 
@@ -82,28 +84,12 @@ function App() {
     return;
   };
 
-  if (!connections) {
-    return (
-      <>
-        <h1>Yhteydet</h1>
-
-        <div className="board">
-          {new Array(16).fill(0).map((_, i) => (
-            <div key={i} className="word word--skeleton"></div>
-          ))}
-        </div>
-        <button className="submit">Kokeile</button>
-        <p>Haetaan yhteyksiä...</p>
-        <div className="explanations"></div>
-      </>
-    );
-  }
-
   return (
     <GameContext.Provider
       value={{
         selectedWords,
         solvedIds,
+        connections,
         selectWord,
       }}
     >
@@ -111,47 +97,32 @@ function App() {
         <h1>Yhteydet</h1>
 
         <div className="board">
-          {words.map((word) => {
-            const isColored = solvedIds.includes(word.id) || tries === 0;
+          {words?.map((word) => {
+            const isColored = solvedIds.includes(word.id) || isLost;
             return (
               <WordDisplay colored={isColored} word={word} key={word.word} />
             );
           })}
+          {!words &&
+            new Array(16)
+              .fill(0)
+              .map((_, i) => (
+                <div key={i} className="word word--skeleton"></div>
+              ))}
         </div>
 
-        <button
-          className="submit"
-          disabled={selectedWords.length !== 4}
-          onClick={() => confirmSelection()}
-        >
-          Kokeile
-        </button>
-
-        <p className="tries">
-          {tries > 0 && `Yrityksiä jäljellä: ${tries}`}
-          {tries === 0 && `Hävisit pelin.`}
-        </p>
-        <div className="explanations">
-          {(tries === 0 ? Object.keys(connections) : solvedIds).map((id) => {
-            const words = connections[id].words;
-            const explanation = connections[id].explanation;
-            return (
-              <div key={id} className="explanation">
-                <i
-                  className="highlight"
-                  style={
-                    {
-                      "--highlight": stringToColour(id),
-                    } as React.CSSProperties
-                  }
-                />
-                <span>
-                  {words.join(", ")}: {explanation}
-                </span>
-              </div>
-            );
-          })}
+        <div className="controls">
+          <LifeDisplay lives={tries} />
+          <button
+            className="submit"
+            disabled={selectedWords.length !== 4}
+            onClick={() => confirmSelection()}
+          >
+            Kokeile
+          </button>
         </div>
+
+        <Explanations showAll={isLost} />
       </>
     </GameContext.Provider>
   );
