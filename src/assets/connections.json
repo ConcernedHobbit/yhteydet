@@ -1,7 +1,17 @@
 {
-  "lastkirj_hahm": {
-    "words": ["Muumi", "Nalle Puh", "Paddington", "Rölli"],
-    "explanation": "Lastenkirjallisuuden hahmoja"
+  "muumi_": {
+    "words": ["Peikko", "Mamma", "Pappa", "Laakso", "Talo"],
+    "explanation": "Muumi____"
+  },
+  "muumiteokset": {
+    "words": [
+      "Suuri Tuhotulva",
+      "Pyrstötähti",
+      "Taikurin hattu",
+      "Taikatalvi",
+      "Rivieralla"
+    ],
+    "explanation": "Muumit-sarjan teokset"
   },
   "planeetat": {
     "words": [
