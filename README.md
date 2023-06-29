@@ -1,14 +1,19 @@
-# Vite + React
+# Yhteydet
 
-This is a [Vite](https://vitejs.dev) project together with React.
+A simple React application that mimics NYT's [Connections](https://www.nytimes.com/games/connections).
 
-[![Edit in CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/github/codesandbox/codesandbox-template-vite-react/main)
+## Developing
 
-[Configuration](https://codesandbox.io/docs/projects/learn/setting-up/tasks) has been added to optimize it for [CodeSandbox Projects](https://codesandbox.io/p/dashboard).
+```bash
+yarn install
+yarn dev
+```
 
-## Resources
+## Building
+```bash
+yarn install
+yarn build
+```
 
-- [CodeSandbox Projects — Docs](https://codesandbox.io/docs/projects)
-- [CodeSandbox — Discord](https://discord.gg/Ggarp3pX5H)
-- [Vite — GitHub](https://github.com/vitejs/vite)
-- [Vite — Docs](https://vitejs.dev/guide/)
+The build can be found in the `dist` folder.
+
