@@ -122,4 +122,9 @@ button:disabled {
   height: calc(1rem + 2 * 1rem);
   border-radius: 100%;
   background-color: #efefe6;
+
+  transition: background-color 100ms;
+}
+.lives .life--lost {
+  background-color: #5a594e;
 }
