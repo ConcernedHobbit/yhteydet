@@ -2,9 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 import { Connections, GameContext, Id, Word } from "./GameContext";
-import WordDisplay from "./WordDisplay";
-import Explanations from "./Explanations";
-import LifeDisplay from "./LifeDisplay";
+import { WordDisplay, Explanations, LifeDisplay } from "./components";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);

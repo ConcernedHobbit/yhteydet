@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { GameContext } from "./GameContext";
-import { stringToColour } from "./utils";
+import { GameContext } from "../GameContext";
+import { stringToColour } from "../utils";
 
 function Explanations({ showAll = false }) {
   const { connections, solvedIds } = useContext(GameContext);
