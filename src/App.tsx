@@ -4,11 +4,15 @@ import "./App.css";
 import { GameContext, Id, Word } from "./GameContext";
 import { WordDisplay, Explanations, LifeDisplay } from "./components";
 import { useConnections } from "./hooks/useConnections";
+import { createEmojiChart } from "./utils";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
   const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
   const [tries, setTries] = useState<number>(4);
+  const [triedCombinations, setTriedCombinations] = useState<
+    Array<Array<Word>>
+  >([]);
 
   const isWon = tries > 0 && solvedIds.length === 4;
   const isLost = tries === 0;
@@ -23,7 +27,9 @@ function App() {
   const newGame = () => {
     setSolvedIds([]);
     setSelectedWords([]);
+    setTriedCombinations([]);
     setTries(4);
+
     refreshConnectionsAndWords();
   };
 
@@ -46,6 +52,7 @@ function App() {
   // Callback handler for when the user confirms a selection of 4 words
   const confirmSelection = () => {
     const ids = selectedWords.map((word) => word.id);
+    setTriedCombinations((tried) => tried.concat([selectedWords]));
 
     if (new Set(ids).size === 1) {
       setSolvedIds((s) => s.concat(ids[0]));
@@ -56,6 +63,18 @@ function App() {
     setSelectedWords([]);
     setTries((t) => t - 1);
     return;
+  };
+
+  const shareGame = () => {
+    const { emojiChart, legendString } = createEmojiChart(
+      triedCombinations,
+      connections
+    );
+    const header = `Yhteydet (satunnainen)`;
+    const footer = `github.com/ConcernedHobbit/yhteydet`;
+
+    const shareText = `${header}\n\n${emojiChart}\n\n${legendString}\n\n${footer}`;
+    navigator?.clipboard?.writeText(shareText);
   };
 
   return (
@@ -83,7 +102,7 @@ function App() {
       </div>
 
       <div className="controls">
-        <LifeDisplay lives={tries} />
+        {!isEnded && <LifeDisplay lives={tries} />}
         {!isEnded && (
           <button
             disabled={selectedWords.length !== 4}
@@ -92,6 +111,7 @@ function App() {
             Kokeile
           </button>
         )}
+        {isEnded && <button onClick={shareGame}>Jaa</button>}
         {isEnded && <button onClick={newGame}>Uusi peli</button>}
       </div>
 
