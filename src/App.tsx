@@ -5,31 +5,18 @@ import { Connections, GameContext, Id, Word } from "./GameContext";
 import { WordDisplay, Explanations, LifeDisplay } from "./components";
 import { shuffle } from "./utils";
 
+const CONNECTIONS = 4;
+const WORDS_PER_CONNECTION = 4;
+
 function App() {
   const [connections, setConnections] = useState<undefined | Connections>();
+  const [words, setWords] = useState<Array<Word>>([]);
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
   const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
   const [tries, setTries] = useState<number>(4);
 
   const isWon = tries > 0 && solvedIds.length === 4;
   const isLost = tries === 0;
-
-  // Parse word array from current connections when it changes
-  const words: Word[] = useMemo(() => {
-    if (!connections) {
-      return [];
-    }
-
-    const keys = Object.keys(connections);
-    return shuffle(
-      keys.flatMap((key) => {
-        // A connection can have more than 4 words.
-        // Limit the connection to 4 words.
-        const connectionWords = shuffle(connections[key].words);
-        return connectionWords.slice(0, 4).map((word) => ({ word, id: key }));
-      })
-    );
-  }, [connections]);
 
   // Load 4 random connections from a JSON file
   useEffect(() => {
@@ -40,19 +27,58 @@ function App() {
         Object.keys(data) as Array<keyof typeof data>
       );
 
-      let selectedKeys = [];
-      for (let i = 0; i < 4; i++) {
-        let nextKey = shuffledKeys.pop();
-        if (nextKey === undefined) return;
-        selectedKeys.push(nextKey);
+      const connections: Connections = {};
+      const rawWords: Array<string> = [];
+
+      while (rawWords.length < CONNECTIONS * WORDS_PER_CONNECTION) {
+        const nextKey = shuffledKeys.pop();
+
+        if (!nextKey) {
+          console.error("Ran out of keys while trying to populate connections");
+          return;
+        }
+
+        const connection = data[nextKey];
+        const connectionWords = shuffle(connection.words);
+        const nextWords = [];
+
+        let notEnoughWords = false;
+        while (nextWords.length < WORDS_PER_CONNECTION) {
+          const nextWord = connectionWords.pop();
+
+          // We should gracefully continue to the next connection if we cannot
+          // provide enough words from the current connection (due to word conflicts)
+          if (!nextWord) {
+            notEnoughWords = true;
+            break;
+          }
+
+          // We should not have duplicate words in the entire set
+          if (rawWords.includes(nextWord)) {
+            continue;
+          }
+
+          nextWords.push(nextWord);
+        }
+
+        if (notEnoughWords) {
+          continue;
+        }
+
+        // Add connection to set and its words to check list
+        connections[nextKey] = {
+          ...connection,
+          words: nextWords,
+        };
+        rawWords.push(...nextWords);
       }
 
-      let connections: Connections = {};
-      selectedKeys.forEach(
-        (key) => (connections[key] = data[key as keyof typeof data])
+      const words: Array<Word> = Object.keys(connections).flatMap((key) =>
+        connections[key].words.map((word) => ({ word, id: key }))
       );
 
       setConnections(connections);
+      setWords(shuffle(words));
     });
   }, []);
 

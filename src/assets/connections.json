@@ -4,8 +4,17 @@
     "explanation": "Lastenkirjallisuuden hahmoja"
   },
   "planeetat": {
-    "words": ["Uranus", "Maa", "Mars", "Venus"],
-    "explanation": "Planeetat"
+    "words": [
+      "Merkurius",
+      "Venus",
+      "Maa",
+      "Mars",
+      "Jupiter",
+      "Saturnus",
+      "Uranus",
+      "Neptunus"
+    ],
+    "explanation": "Aurinkokunnan planeetat"
   },
   "_pallo": {
     "words": ["Pesä", "Kori", "Käsi", "Jalka"],
