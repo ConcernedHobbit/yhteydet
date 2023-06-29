@@ -1,15 +1,20 @@
 #root {
   max-width: 1280px;
-  min-width: 370px;
-  width: calc(min(1280px, 100vw) - 2 * 1rem);
   margin: 0 auto;
   padding: 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  width: max(
+    min(calc(4 * 8rem + 3 * 0.5rem), calc(100vw - 4rem)),
+    calc(370px - 2 * 1rem)
+  );
 }
 
 h1 {
+  width: 100%;
+
   font-size: 3.2em;
   line-height: 1.1;
 }
@@ -53,10 +58,7 @@ h1 {
 }
 
 .controls {
-  width: max(
-    min(calc(4 * 8rem + 3 * 0.5rem), calc(100vw - 4rem)),
-    calc(370px - 2 * 1rem)
-  );
+  width: 100%;
   flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
@@ -95,6 +97,7 @@ button.submit:disabled {
 
 .explanations {
   min-height: calc(4 * 1.5rem);
+  width: 100%;
 }
 .explanation {
   display: flex;
