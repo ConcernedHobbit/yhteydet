@@ -3,6 +3,7 @@ import "./App.css";
 
 import { Connections, GameContext, Id, Word } from "./GameContext";
 import { WordDisplay, Explanations, LifeDisplay } from "./components";
+import { shuffle } from "./utils";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
@@ -18,24 +19,20 @@ function App() {
     }
 
     const keys = Object.keys(connections);
-    const unshuffled = keys.flatMap((key) =>
-      connections[key].words.map((word) => ({ word, id: key }))
+    return shuffle(
+      keys.flatMap((key) =>
+        connections[key].words.map((word) => ({ word, id: key }))
+      )
     );
-    return unshuffled
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
   }, [connections]);
 
   useEffect(() => {
     import("./assets/connections.json").then((rawData) => {
       const data = rawData.default;
 
-      const keys = Object.keys(data) as Array<keyof typeof data>;
-      const shuffledKeys = keys
-        .map((value) => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value);
+      const shuffledKeys = shuffle(
+        Object.keys(data) as Array<keyof typeof data>
+      );
 
       let selectedKeys = [];
       for (let i = 0; i < 4; i++) {
