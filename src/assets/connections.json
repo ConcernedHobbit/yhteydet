@@ -26,6 +26,10 @@
     ],
     "explanation": "Aurinkokunnan planeetat"
   },
+  "_vaahto": {
+    "words": ["Kerma", "Parta", "Muoto", "Kylpy"],
+    "explanation": "____vaahto"
+  },
   "_pallo": {
     "words": ["Pesä", "Kori", "Käsi", "Jalka"],
     "explanation": "____pallo"
