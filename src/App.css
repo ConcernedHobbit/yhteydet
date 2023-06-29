@@ -1,6 +1,5 @@
 #root {
   max-width: 1280px;
-  min-width: 370px;
   width: calc(min(1280px, 100vw) - 2 * 1rem);
   margin: 0 auto;
   padding: 1rem;
@@ -53,7 +52,7 @@ h1 {
 }
 
 .controls {
-  width: min(calc(4 * 8rem + 3 * 0.5rem), max(calc(100vw - 4rem), 370px));
+  width: min(calc(4 * 8rem + 3 * 0.5rem), calc(100vw - 4rem));
   flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
