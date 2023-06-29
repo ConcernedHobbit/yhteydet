@@ -12,10 +12,20 @@ function App() {
 
   const isWon = tries > 0 && solvedIds.length === 4;
   const isLost = tries === 0;
+  const isEnded = isWon || isLost;
 
-  const { loading, connections, words } = useConnections({
-    name: "connections",
-  });
+  const { loading, connections, words, refreshConnectionsAndWords } =
+    useConnections({
+      name: "connections",
+    });
+
+  // Start a new game
+  const newGame = () => {
+    setSolvedIds([]);
+    setSelectedWords([]);
+    setTries(4);
+    refreshConnectionsAndWords();
+  };
 
   // Callback handler for when a word is selected
   const selectWord = (word: Word) => {
@@ -74,13 +84,15 @@ function App() {
 
       <div className="controls">
         <LifeDisplay lives={tries} />
-        <button
-          className="submit"
-          disabled={selectedWords.length !== 4}
-          onClick={() => confirmSelection()}
-        >
-          Kokeile
-        </button>
+        {!isEnded && (
+          <button
+            disabled={selectedWords.length !== 4}
+            onClick={confirmSelection}
+          >
+            Kokeile
+          </button>
+        )}
+        {isEnded && <button onClick={newGame}>Uusi peli</button>}
       </div>
 
       <Explanations showAll={isLost} />

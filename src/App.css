@@ -70,13 +70,13 @@ h1 {
     justify-content: center;
     flex-wrap: wrap-reverse;
   }
-  button.submit,
+  button,
   .lives {
     width: 100%;
   }
 }
 
-button.submit {
+button {
   background-color: #efefe6;
   color: black;
   border: none;
@@ -89,7 +89,7 @@ button.submit {
   transition-property: background-color color;
   transition-duration: 300ms;
 }
-button.submit:disabled {
+button:disabled {
   background-color: #535351;
   color: #efefe6;
   cursor: unset;
