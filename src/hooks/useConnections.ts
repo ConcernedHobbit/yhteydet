@@ -18,10 +18,15 @@ export interface ConnectionsProps {
    * After hook is initialized, this can be changed with the return value `setWordsPerConnection`.
    */
   wordsPerConnection?: number;
+  /**
+   * Seed for PRNG state manipulation
+   */
+  seed?: string;
 }
 
 export const useConnections = ({
   name,
+  seed,
   connections: numConnections = 4,
   wordsPerConnection: numWords = 4,
 }: ConnectionsProps) => {
@@ -46,7 +51,10 @@ export const useConnections = ({
       return;
     }
 
-    const shuffledKeys = shuffle(Object.keys(data) as Array<keyof typeof data>);
+    const shuffledKeys = shuffle(
+      Object.keys(data) as Array<keyof typeof data>,
+      seed
+    );
 
     const connections: Connections = {};
     const rawWords: Array<string> = [];
@@ -60,7 +68,7 @@ export const useConnections = ({
       }
 
       const connection = data[nextKey];
-      const connectionWords = shuffle(connection.words);
+      const connectionWords = shuffle(connection.words, seed);
       const nextWords = [];
 
       let notEnoughWords = false;
@@ -99,8 +107,9 @@ export const useConnections = ({
     );
 
     setConnections(connections);
+    // No seed here to shuffle the board
     setWords(shuffle(words));
-  }, [data, setConnections, setWords]);
+  }, [data, seed, setConnections, setWords]);
 
   useEffect(refreshConnectionsAndWords, [
     amountConnections,

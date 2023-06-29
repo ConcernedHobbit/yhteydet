@@ -4,7 +4,7 @@ import "./App.css";
 import { GameContext, Id, Word } from "./GameContext";
 import { WordDisplay, Explanations, LifeDisplay } from "./components";
 import { useConnections } from "./hooks/useConnections";
-import { createEmojiChart } from "./utils";
+import { createEmojiChart, randomWords } from "./utils";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
@@ -14,6 +14,12 @@ function App() {
     Array<Array<Word>>
   >([]);
 
+  const [seed, setSeed] = useState(() => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    return params.get("seed") ?? randomWords().join("-");
+  });
+
   const isWon = tries > 0 && solvedIds.length === 4;
   const isLost = tries === 0;
   const isEnded = isWon || isLost;
@@ -21,6 +27,7 @@ function App() {
   const { loading, connections, words, refreshConnectionsAndWords } =
     useConnections({
       name: "connections",
+      seed,
     });
 
   // Start a new game
@@ -29,6 +36,8 @@ function App() {
     setSelectedWords([]);
     setTriedCombinations([]);
     setTries(4);
+    // This might not be best practice but heck it.
+    setSeed(randomWords().join("-"));
 
     refreshConnectionsAndWords();
   };
@@ -65,16 +74,18 @@ function App() {
     return;
   };
 
+  const copyToClipboard = (string: string) =>
+    navigator?.clipboard?.writeText(string);
   const shareGame = () => {
     const { emojiChart, legendString } = createEmojiChart(
       triedCombinations,
       connections
     );
-    const header = `Yhteydet (satunnainen)`;
+    const header = `Yhteydet (${seed})`;
     const footer = `github.com/ConcernedHobbit/yhteydet`;
 
     const shareText = `${header}\n\n${emojiChart}\n\n${legendString}\n\n${footer}`;
-    navigator?.clipboard?.writeText(shareText);
+    copyToClipboard(shareText);
   };
 
   return (
@@ -86,7 +97,12 @@ function App() {
         selectWord,
       }}
     >
-      <h1>Yhteydet</h1>
+      <div className="header">
+        <h1>Yhteydet</h1>
+        <span className="seed" onClick={() => copyToClipboard(seed)}>
+          {seed}
+        </span>
+      </div>
 
       <div className="board">
         {words?.map((word) => {

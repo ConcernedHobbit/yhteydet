@@ -12,11 +12,23 @@
   );
 }
 
-h1 {
+.header {
   width: 100%;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+}
+h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+.seed {
+  opacity: 0.25;
+  transition: opacity 50ms;
+  cursor: pointer;
+}
+.seed:hover {
+  opacity: 1;
 }
 
 .board {
