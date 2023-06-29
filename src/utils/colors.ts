@@ -1,5 +1,11 @@
 import { padZero } from "./padZero";
 
+/**
+ * Creates a consistent hex colour from a given string
+ * @param str String to get a hex colour for
+ * @returns Non-alpha hex colour value (#abcdef)
+ * @credit https://stackoverflow.com/a/16348977
+ */
 export function stringToColour(str: string) {
   let hash = 0;
   str.split("").forEach((char) => {
@@ -13,6 +19,13 @@ export function stringToColour(str: string) {
   return colour;
 }
 
+/**
+ * Inverts a given hex colour
+ * @param hex Hex colour string (#abc or #abcdef)
+ * @param bw Whether the result should be binary black/white instead of colour
+ * @returns Hex colour value (#abcdef)
+ * @credit https://stackoverflow.com/a/35970186
+ */
 export function invertColor(hex: string, bw = true) {
   if (hex.indexOf("#") === 0) {
     hex = hex.slice(1);
