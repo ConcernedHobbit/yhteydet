@@ -48,7 +48,7 @@ h1 {
   transition-property: background-color color;
   transition-duration: 50ms;
 }
-.word--solved {
+.word--inactive {
   cursor: unset;
 }
 .word--selected,

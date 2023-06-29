@@ -13,7 +13,7 @@ function WordDisplay({ word, colored }: WordDisplayProps) {
   const classes = [
     "word",
     game.selectedWords.includes(word) && "word--selected",
-    game.solvedIds.includes(word.id) && "word--solved",
+    colored && "word--inactive",
   ]
     .filter(Boolean)
     .join(" ");
