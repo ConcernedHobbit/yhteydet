@@ -1,0 +1,32 @@
+{
+  "test1": {
+    "test_comment": "This should not be populated, as it has too few words.",
+    "words": ["t1_1", "t1_2", "t1_3"],
+    "explanation": "test1"
+  },
+  "test2": {
+    "test_comment": "Base set for test2. These should populate once.",
+    "words": ["t2_1", "t2_2", "t2_3", "t2_4"],
+    "explanation": "test2"
+  },
+  "test2_2": {
+    "test_comment": "Duplicate base set for test2. These should not duplicate.",
+    "words": ["t2_1", "t2_2", "t2_3", "t2_4"],
+    "explanation": "test2_2"
+  },
+  "test2_3": {
+    "test_comment": "Extended set for test2. t2_5 etc. should populate once.",
+    "words": ["t2_1", "t2_5", "t2_2", "t2_6", "t2_3", "t2_7", "t2_4", "t2_8"],
+    "explanation": "test2_3"
+  },
+  "rest1": {
+    "test_comment": "Rest set for filling out to 3/4 connections.",
+    "words": ["r1_1", "r1_2", "r1_3", "r1_4"],
+    "explanation": "rest1"
+  },
+  "rest2": {
+    "test_comment": "Rest set for filling out to 4/4 connections.",
+    "words": ["r2_1", "r2_2", "r2_3", "r2_4"],
+    "explanation": "rest2"
+  }
+}
