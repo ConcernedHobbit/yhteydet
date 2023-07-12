@@ -66,7 +66,7 @@ function Daily() {
   const confirmSelection = () => {
     const ids = selectedWords.map((word) => word.id);
     setTriedCombinations((tried) => {
-      const newTried = tried.concat(selectedWords);
+      const newTried = tried.concat([selectedWords]);
       localStorage.setItem(`combos-${today}`, JSON.stringify(newTried));
       return newTried;
     });
