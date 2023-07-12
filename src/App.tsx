@@ -77,14 +77,10 @@ function App() {
   const copyToClipboard = (string: string) =>
     navigator?.clipboard?.writeText(string);
   const shareGame = () => {
-    const { emojiChart, legendString } = createEmojiChart(
-      triedCombinations,
-      connections
-    );
-    const header = `Yhteydet (${seed})`;
-    const footer = `github.com/ConcernedHobbit/yhteydet`;
+    const { emojiChart } = createEmojiChart(triedCombinations, connections);
+    const url = `yhteydet.äää.fi/?seed=${seed}`;
 
-    const shareText = `${header}\n\n${emojiChart}\n\n${legendString}\n\n${footer}`;
+    const shareText = `${emojiChart}\n\n${url}`;
     copyToClipboard(shareText);
   };
 
@@ -99,7 +95,12 @@ function App() {
     >
       <div className="header">
         <h1>Yhteydet</h1>
-        <span className="seed" onClick={() => copyToClipboard(seed)}>
+        <span
+          className="seed"
+          onClick={() =>
+            copyToClipboard(`https://yhteydet.äää.fi/?seed=${seed}`)
+          }
+        >
           {seed}
         </span>
       </div>
