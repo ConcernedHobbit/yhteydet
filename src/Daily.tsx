@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { GameContext, Id, Word } from "./utils/GameContext";
-import { LoadErrors, useConnections } from "./hooks/useConnections";
+import { useConnections } from "./hooks/useConnections";
 import GameBoard from "./components/GameBoard";
 import { Explanations, LifeDisplay } from "./components";
 import { createEmojiChart } from "./utils";
@@ -8,16 +8,11 @@ import { copyToClipboard } from "./utils/clipboard";
 import { Link } from "react-router-dom";
 
 function Daily() {
-  const formatter = new Intl.DateTimeFormat([], {
-    timeZone: "Europe/Helsinki",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
-  const today = formatter.format(new Date()).split(",")[0];
+  const nowUTC = new Date();
+  const today = `${nowUTC.getUTCFullYear()}-${
+    nowUTC.getUTCMonth() + 1
+  }-${nowUTC.getUTCDate()}`;
+  console.log(today);
 
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
   const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
