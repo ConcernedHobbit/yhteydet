@@ -6,10 +6,7 @@
   align-items: center;
   flex-direction: column;
 
-  width: max(
-    min(calc(4 * 8rem + 3 * 0.5rem), calc(100vw - 4rem)),
-    calc(370px - 2 * 1rem)
-  );
+  width: max(min(calc(4 * 8rem + 3 * 0.5rem), 100vw), 370px);
 }
 
 .header {
