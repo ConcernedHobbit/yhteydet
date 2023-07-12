@@ -9,8 +9,8 @@ function Explanations({ showAll = false }) {
     <div className="explanations">
       {connections &&
         (showAll ? Object.keys(connections) : solvedIds).map((id) => {
-          const words = connections[id].words;
-          const explanation = connections[id].explanation;
+          const explanation = connections[id]?.explanation;
+          if (!explanation) return;
 
           return (
             <div key={id} className="explanation">

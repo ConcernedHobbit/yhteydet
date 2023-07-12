@@ -12,18 +12,43 @@ function Daily() {
   const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
-  const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
-  const [tries, setTries] = useState<number>(4);
+  // TODO: Dedupe JSON logic
+  const [solvedIds, setSolvedIds] = useState<Array<Id>>(() => {
+    const saved = localStorage.getItem(`solved-${today}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (err) {
+        return [];
+      }
+    }
+    return [];
+  });
+  const [tries, setTries] = useState<number>(() => {
+    const saved = localStorage.getItem(`tries-${today}`);
+    if (saved) return parseInt(saved);
+    return 4;
+  });
   const [triedCombinations, setTriedCombinations] = useState<
     Array<Array<Word>>
-  >([]);
+  >(() => {
+    const saved = localStorage.getItem(`combos-${today}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (err) {
+        return [];
+      }
+    }
+    return [];
+  });
 
   const isWon = tries > 0 && solvedIds.length === 4;
   const isLost = tries === 0;
   const isEnded = isWon || isLost;
 
   const selectWord = (word: Word) => {
-    if (tries === 0 || isWon || solvedIds.includes(word.id)) {
+    if (isEnded || solvedIds.includes(word.id)) {
       return;
     }
 
@@ -40,15 +65,27 @@ function Daily() {
   // TODO: Dedupe logic
   const confirmSelection = () => {
     const ids = selectedWords.map((word) => word.id);
-    setTriedCombinations((tried) => tried.concat([selectedWords]));
+    setTriedCombinations((tried) => {
+      const newTried = tried.concat(selectedWords);
+      localStorage.setItem(`combos-${today}`, JSON.stringify(newTried));
+      return newTried;
+    });
 
     if (new Set(ids).size === 1) {
-      setSolvedIds((s) => s.concat(ids[0]));
+      setSolvedIds((s) => {
+        const newSolved = s.concat(ids[0]);
+        localStorage.setItem(`solved-${today}`, JSON.stringify(newSolved));
+        return newSolved;
+      });
       setSelectedWords([]);
       return;
     }
 
-    setTries((t) => t - 1);
+    setTries((t) => {
+      const newTries = t - 1;
+      localStorage.setItem(`tries-${today}`, newTries.toString());
+      return newTries;
+    });
     return;
   };
 
