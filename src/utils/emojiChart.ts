@@ -1,4 +1,4 @@
-import { Connections, Word } from "../GameContext";
+import { Connections, Word } from "./GameContext";
 
 export const emojis = ["🟦", "🟨", "🟩", "🟪"];
 export const createEmojiChart = (

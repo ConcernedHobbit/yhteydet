@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GameContext, Word } from "../GameContext";
+import { GameContext, Word } from "../utils/GameContext";
 import { invertColor, stringToColour } from "../utils/";
 
 export interface WordDisplayProps {

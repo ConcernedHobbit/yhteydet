@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "react-responsive-modal/styles.css";
-import "./Tutorial.css";
 import { Modal } from "react-responsive-modal";
 
 function Tutorial() {

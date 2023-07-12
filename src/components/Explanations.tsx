@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GameContext } from "../GameContext";
+import { GameContext } from "../utils/GameContext";
 import { stringToColour } from "../utils/";
 
 function Explanations({ showAll = false }) {

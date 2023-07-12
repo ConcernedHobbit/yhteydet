@@ -1,11 +1,13 @@
 import { useState } from "react";
-import "./App.css";
+import "./Game.css";
 
-import { GameContext, Id, Word } from "./GameContext";
-import { WordDisplay, Explanations, LifeDisplay } from "./components";
+import { GameContext, Id, Word } from "./utils/GameContext";
+import { Explanations, LifeDisplay } from "./components";
 import { useConnections } from "./hooks/useConnections";
 import { createEmojiChart, randomWords } from "./utils";
-import Tutorial from "./Tutorial";
+import Tutorial from "./components/Tutorial";
+import GameBoard from "./components/GameBoard";
+import { copyToClipboard } from "./utils/clipboard";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
@@ -25,11 +27,10 @@ function App() {
   const isLost = tries === 0;
   const isEnded = isWon || isLost;
 
-  const { loading, connections, words, refreshConnectionsAndWords } =
-    useConnections({
-      name: "connections",
-      seed,
-    });
+  const { connections, words, refreshConnectionsAndWords } = useConnections({
+    name: "connections",
+    seed,
+  });
 
   // Start a new game
   const newGame = () => {
@@ -70,13 +71,10 @@ function App() {
       return;
     }
 
-    setSelectedWords([]);
     setTries((t) => t - 1);
     return;
   };
 
-  const copyToClipboard = (string: string) =>
-    navigator?.clipboard?.writeText(string);
   const shareGame = () => {
     const { emojiChart } = createEmojiChart(triedCombinations, connections);
     const url = `yhteydet.äää.fi/?seed=${seed}`;
@@ -92,6 +90,8 @@ function App() {
         solvedIds,
         connections,
         selectWord,
+        tries,
+        words,
       }}
     >
       <Tutorial />
@@ -107,18 +107,7 @@ function App() {
         </span>
       </div>
 
-      <div className="board">
-        {words?.map((word) => {
-          const isColored = solvedIds.includes(word.id) || isLost;
-          return (
-            <WordDisplay colored={isColored} word={word} key={word.word} />
-          );
-        })}
-        {loading &&
-          new Array(16)
-            .fill(0)
-            .map((_, i) => <div key={i} className="word word--skeleton"></div>)}
-      </div>
+      <GameBoard />
 
       <div className="controls">
         {!isEnded && <LifeDisplay lives={tries} />}

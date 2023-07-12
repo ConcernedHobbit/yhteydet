@@ -19,10 +19,12 @@ export interface GameContextProps {
   selectedWords: Array<Word>;
   selectWord: (word: Word) => void;
   solvedIds: Array<Id>;
+  tries?: number;
 }
 
 export const GameContext = createContext<GameContextProps>({
   selectWord: () => {},
   selectedWords: [],
   solvedIds: [],
+  tries: 4,
 });

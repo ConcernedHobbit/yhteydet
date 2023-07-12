@@ -1,0 +1,21 @@
+{
+  "multiple": true,
+  "7/12/2023": {
+    "muumi_": {
+      "words": ["Peikko", "Mamma", "Pappa", "Laakso", "Talo"],
+      "explanation": "Muumi____"
+    },
+    "_vaahto": {
+      "words": ["Kerma", "Parta", "Muoto", "Kylpy"],
+      "explanation": "____vaahto"
+    },
+    "_pallo": {
+      "words": ["Pesä", "Kori", "Käsi", "Jalka"],
+      "explanation": "____pallo"
+    },
+    "_sieni": {
+      "words": ["Korva", "Myrkky", "Herkku", "Pesu"],
+      "explanation": "____sieni"
+    }
+  }
+}

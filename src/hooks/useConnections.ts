@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Connections, Word } from "../GameContext";
+import { Connections, Word } from "../utils/GameContext";
 import { shuffle } from "../utils";
 
 export interface ConnectionsProps {
@@ -22,15 +22,29 @@ export interface ConnectionsProps {
    * Seed for PRNG state manipulation
    */
   seed?: string;
+  /**
+   * If loading a file with multiple Connection sets (i.e. daily),
+   * which key to use for loading the dataset.
+   */
+  key?: string;
 }
+
+export const LoadErrors = {
+  "no-such-key": Symbol("no-such-key"),
+  "no-key-set": Symbol("no-key-set"),
+  "failed-load": Symbol("failed-load"),
+} as const;
 
 export const useConnections = ({
   name,
   seed,
+  key,
   connections: numConnections = 4,
   wordsPerConnection: numWords = 4,
 }: ConnectionsProps) => {
   const [data, setData] = useState<Connections>();
+  const [error, setError] =
+    useState<(typeof LoadErrors)[keyof typeof LoadErrors]>();
   const loading = useMemo(() => data === undefined, [data]);
 
   const [amountConnections, setAmountConnections] = useState(numConnections);
@@ -41,9 +55,35 @@ export const useConnections = ({
 
   // Import connections to state from specified path
   useEffect(() => {
-    import(`../assets/${name}.json`).then((rawData) =>
-      setData(rawData.default)
-    );
+    // Dangerous method without type checking!
+    import(`../assets/${name}.json`)
+      .then((rawData) => {
+        const data = rawData.default;
+
+        if (data.multiple) {
+          if (!key) {
+            setError(LoadErrors["no-key-set"]);
+            return;
+          }
+          if (!data[key]) {
+            setError(LoadErrors["no-such-key"]);
+            return;
+          }
+
+          setData(data[key]);
+        } else {
+          if (key) {
+            setError(LoadErrors["no-key-set"]);
+            return;
+          }
+
+          setData(data);
+        }
+      })
+      .catch((e) => {
+        setError(LoadErrors["failed-load"]);
+        console.error(e);
+      });
   }, []);
 
   const refreshConnectionsAndWords = useCallback(() => {
@@ -118,6 +158,7 @@ export const useConnections = ({
   useEffect(refreshConnectionsAndWords, [data]);
 
   return {
+    error,
     loading,
     connections,
     words,
