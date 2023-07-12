@@ -5,6 +5,7 @@ import { GameContext, Id, Word } from "./GameContext";
 import { WordDisplay, Explanations, LifeDisplay } from "./components";
 import { useConnections } from "./hooks/useConnections";
 import { createEmojiChart, randomWords } from "./utils";
+import Tutorial from "./Tutorial";
 
 function App() {
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
@@ -93,6 +94,7 @@ function App() {
         selectWord,
       }}
     >
+      <Tutorial />
       <div className="header">
         <h1>Yhteydet</h1>
         <span

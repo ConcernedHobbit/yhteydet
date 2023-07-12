@@ -1,0 +1,19 @@
+#tutorial-modal {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+#tutorial-modal p,
+ul {
+  margin: 0;
+}
+#tutorial-modal h2 {
+  margin-block-start: 0;
+}
+#tutorial-modal ul,
+#tutorial-modal p:last-of-type {
+  margin-block-end: 1rem;
+}
+.react-responsive-modal-closeButton {
+  width: auto;
+}
