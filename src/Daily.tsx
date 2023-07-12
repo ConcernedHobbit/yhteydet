@@ -8,11 +8,8 @@ import { copyToClipboard } from "./utils/clipboard";
 import { Link } from "react-router-dom";
 
 function Daily() {
-  const nowUTC = new Date();
-  const today = `${nowUTC.getUTCFullYear()}-${
-    nowUTC.getUTCMonth() + 1
-  }-${nowUTC.getUTCDate()}`;
-  console.log(today);
+  const now = new Date();
+  const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 
   const [selectedWords, setSelectedWords] = useState<Array<Word>>([]);
   const [solvedIds, setSolvedIds] = useState<Array<Id>>([]);
