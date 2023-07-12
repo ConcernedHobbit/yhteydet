@@ -4,6 +4,7 @@ import Freeplay from "./Freeplay";
 import "./index.css";
 import { RouterProvider, createBrowserRouter, Link } from "react-router-dom";
 import Daily from "./Daily";
+import Tutorial from "./components/Tutorial";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <Tutorial />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

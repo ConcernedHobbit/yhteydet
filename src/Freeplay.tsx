@@ -94,7 +94,6 @@ function App() {
         words,
       }}
     >
-      <Tutorial />
       <div className="header">
         <h1>Yhteydet</h1>
         <span
