@@ -77,7 +77,7 @@ function App() {
 
   const shareGame = () => {
     const { emojiChart } = createEmojiChart(triedCombinations, connections);
-    const url = `yhteydet.äää.fi/?seed=${seed}`;
+    const url = `yhteydet.äää.fi/vapaapeli?seed=${seed}`;
 
     const shareText = `${emojiChart}\n\n${url}`;
     copyToClipboard(shareText);
@@ -99,7 +99,7 @@ function App() {
         <span
           className="seed"
           onClick={() =>
-            copyToClipboard(`https://yhteydet.äää.fi/?seed=${seed}`)
+            copyToClipboard(`https://yhteydet.äää.fi/vapaapeli?seed=${seed}`)
           }
         >
           {seed}
